@@ -118,6 +118,12 @@ namespace USFMToolsSharpTest
             Assert.AreEqual("<div class=\"list-1\">Peres ayah Hezron.</div><div class=\"list-1\"><span class=\"verse\"><sup class=\"versemarker\">19</sup>Hezron ayah Ram.</span></div>", WrapTest("\\li Peres ayah Hezron. \\li \\v 19 Hezron ayah Ram."));
         }
         [Test]
+        public void TestMIRender()
+        {
+            // Indented Introduction Flush Paragraph
+            Assert.AreEqual("<div class=\"intro-para-flush-indent\">Some indented flush text.</div>", WrapTest("\\mi Some indented flush text."));
+        }
+        [Test]
         public void TestFootnoteRender()
         {
             // Footnote Caller - Text - Alternate Translation

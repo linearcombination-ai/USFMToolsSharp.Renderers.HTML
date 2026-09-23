@@ -697,6 +697,23 @@ namespace USFMToolsSharp.Renderers.HTML
                     }
                     output.AppendLine("</div>");
                     break;
+                case MIMarker mIMarker:
+                    output.Append($"<div class=\"para-flush-indent\">");
+                    bool isFirstMIContent = true;
+                    foreach (Marker marker in input.Contents)
+                    {
+                        if (isFirstMIContent && marker is TextBlock miTextBlock)
+                        {
+                            output.AppendLine(miTextBlock.Text.TrimStart(' '));
+                        }
+                        else
+                        {
+                            RenderMarker(marker, output, markerStack);
+                        }
+                        isFirstMIContent = false;
+                    }
+                    output.AppendLine("</div>");
+                    break;
                 case IOTMarker iotMarker:
                     output.AppendLine($"<div class=\"outline-title\">{iotMarker.Title}</div>");
                     break;

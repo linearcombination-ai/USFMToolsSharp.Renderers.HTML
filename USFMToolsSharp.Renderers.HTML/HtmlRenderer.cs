@@ -698,7 +698,7 @@ namespace USFMToolsSharp.Renderers.HTML
                     output.AppendLine("</div>");
                     break;
                 case MIMarker mIMarker:
-                    output.Append($"<div class=\"intro-para-flush-indent\">");
+                    output.Append($"<div class=\"para-flush-indent\">");
                     bool isFirstMIContent = true;
                     foreach (Marker marker in input.Contents)
                     {

@@ -120,8 +120,16 @@ namespace USFMToolsSharpTest
         [Test]
         public void TestMIRender()
         {
-            // Indented Introduction Flush Paragraph
-            Assert.AreEqual("<div class=\"intro-para-flush-indent\">Some indented flush text.</div>", WrapTest("\\mi Some indented flush text."));
+            // Indented Flush Paragraph
+            Assert.AreEqual("<div class=\"para-flush-indent\">Some indented flush text.</div>", WrapTest("\\mi Some indented flush text."));
+
+            // No leading-space artifact when content starts with a curly opening quote (U+201D),
+            // and \m / \s5 following the \mi still render without regression
+            string result = WrapTest("\\v 12 dia berkata dengan suara nyaring:\n\\mi ”Lorem ipsum dolor sit amet, consectetur adipiscing elit!”\n\\m\n\\s5\n");
+            Assert.IsTrue(result.Contains("<div class=\"para-flush-indent\">”Lorem ipsum dolor sit amet, consectetur adipiscing elit!”</div>"), result);
+            Assert.IsFalse(result.Contains("para-flush-indent\"> ”"));
+            Assert.IsTrue(result.Contains("<div class=\"resetmargin\">"));
+            Assert.IsTrue(result.Contains("<div class=\"sectionhead-5\">"));
         }
         [Test]
         public void TestFootnoteRender()

@@ -699,9 +699,18 @@ namespace USFMToolsSharp.Renderers.HTML
                     break;
                 case MIMarker mIMarker:
                     output.Append($"<div class=\"intro-para-flush-indent\">");
+                    bool isFirstMIContent = true;
                     foreach (Marker marker in input.Contents)
                     {
-                        RenderMarker(marker, output, markerStack);
+                        if (isFirstMIContent && marker is TextBlock miTextBlock)
+                        {
+                            output.AppendLine(miTextBlock.Text.TrimStart(' '));
+                        }
+                        else
+                        {
+                            RenderMarker(marker, output, markerStack);
+                        }
+                        isFirstMIContent = false;
                     }
                     output.AppendLine("</div>");
                     break;
